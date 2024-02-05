@@ -66,6 +66,7 @@ const userSchema = new Schema<IUser>(
       defaultAddress: {
         type: String,
       },
+      default: {},
     },
     return: {
       type: [String],
