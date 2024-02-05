@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 
 export type IBookingAddress = {
   fullName: string;
-  mobileNumber: number;
+  phoneNumber: number;
   state: string;
   city: string;
   area: string;

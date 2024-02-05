@@ -7,11 +7,7 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
 
   user.id = id;
 
-  console.log(user, 'user data');
-
   const createdUser = await User.create(user);
-
-  console.log(createdUser, 'created user');
 
   if (!createdUser) {
     throw new Error('Failed to create user');

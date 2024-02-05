@@ -41,39 +41,30 @@ const userSchema = new Schema<IUser>(
     bookingAddress: {
       fullName: {
         type: String,
-        required: true,
       },
-      mobileNumber: {
+      phoneNumber: {
         type: Number,
-        required: true,
       },
       state: {
         type: String,
-        required: true,
       },
       city: {
         type: String,
-        required: true,
       },
       area: {
         type: String,
-        required: true,
       },
       houseAddress: {
         type: String,
-        required: true,
       },
       landMark: {
         type: String,
-        required: true,
       },
       label: {
         type: String,
-        required: true,
       },
       defaultAddress: {
         type: String,
-        required: true,
       },
     },
     return: {
