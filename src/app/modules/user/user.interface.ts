@@ -14,7 +14,7 @@ export type IBookingAddress = {
 
 export type IUser = {
   id: string;
-  fullName: string;
+  name: string;
   role: string;
   email: string;
   password: string;

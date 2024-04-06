@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\projects\\pixelCartBackend\\logs\\winston\\errors\\.251585078b884a4cb566925aa4320cd32dbfe302-audit.json",
+    "files": [
+        {
+            "date": 1712422634626,
+            "name": "D:\\projects\\pixelCartBackend\\logs\\winston\\errors\\wm-2024-06-04-22-error.log",
+            "hash": "7860e2ee71ec4fea8f958e1f870c5953b67f85ec35f6e6c0f9b3aa567f80fc1a"
+        },
+        {
+            "date": 1712422855605,
+            "name": "D:\\projects\\pixelCartBackend\\logs\\winston\\errors\\wm-2024-06-04-23-error.log",
+            "hash": "e3990a341c98a2840cb3f184b6d7df55df7875133b02f300fe452f0da33634e3"
+        }
+    ],
+    "hashType": "sha256"
+}
