@@ -6,6 +6,7 @@ import ApiError from '../../errors/ApiError';
 import { ZodError } from 'zod';
 import handleZodError from '../../errors/handleZodError';
 import handleCastError from '../../errors/handleCastError';
+import { errorLogger } from '../../shared/logger';
 
 const globalErrorHandler: ErrorRequestHandler = async (
   error,
@@ -13,6 +14,11 @@ const globalErrorHandler: ErrorRequestHandler = async (
   res,
   next,
 ) => {
+  // separating logs based on development and production
+  config.env === 'development'
+    ? console.log('globalErrorHandler ~~~', error)
+    : errorLogger.error('globalErrorHandler ~~~', error);
+
   let statusCode = 500;
   let message = 'Something went wrong!';
   let errorMessages: IGenericErrorMessage[] = [];
@@ -36,10 +42,19 @@ const globalErrorHandler: ErrorRequestHandler = async (
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
   } else if (error instanceof Error) {
-    message = error?.message;
-    errorMessages = error?.message
-      ? [{ path: '', message: error?.message }]
-      : [];
+    // Check for MongoServerError: E11000
+    if (
+      (error as any).name === 'MongoServerError' &&
+      (error as any).code === 11000
+    ) {
+      statusCode = 400; // You can set a more appropriate status code for duplicate key errors
+      message = 'User aleady exist. Try with another email.';
+    } else {
+      message = error?.message;
+      errorMessages = error?.message
+        ? [{ path: '', message: error?.message }]
+        : [];
+    }
   } else if (error instanceof ApiError) {
     statusCode = error?.statusCode;
     message = error?.message;
@@ -54,8 +69,6 @@ const globalErrorHandler: ErrorRequestHandler = async (
     errorMessages,
     stack: config.env !== 'production' ? error?.stack : undefined,
   });
-
-  next();
 };
 
 export default globalErrorHandler;

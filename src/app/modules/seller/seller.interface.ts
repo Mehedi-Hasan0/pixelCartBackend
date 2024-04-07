@@ -1,5 +1,6 @@
 import { Model } from 'mongoose';
 import { IEvent } from '../event/event.interface';
+import { IProduct } from '../product/product.interface';
 
 type ISellerAddress = {
   state: string;
@@ -22,7 +23,7 @@ export type ISeller = {
   address: ISellerAddress;
   positiveSellerRatings: number;
   event: IEvent;
-  products: string[]; // have to import from products interface
+  products: IProduct[]; // have to import from products interface
 };
 
 export type SellerModel = Model<ISeller, Record<string, unknown>>;
