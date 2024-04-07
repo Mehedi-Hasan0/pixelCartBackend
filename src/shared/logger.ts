@@ -21,7 +21,7 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 
 const normalLogger = createLogger({
   level: 'info',
-  format: combine(label({ label: 'UM' }), timestamp(), myFormat),
+  format: combine(label({ label: 'PC' }), timestamp(), myFormat),
   transports: [
     new transports.Console(),
     new DailyRotateFile({
@@ -42,7 +42,7 @@ const normalLogger = createLogger({
 
 const errorLogger = createLogger({
   level: 'error',
-  format: combine(label({ label: 'UM' }), timestamp(), myFormat),
+  format: combine(label({ label: 'PC' }), timestamp(), myFormat),
   transports: [
     new transports.Console(),
     new DailyRotateFile({

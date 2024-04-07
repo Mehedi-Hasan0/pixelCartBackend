@@ -1,20 +1,12 @@
 import { Schema, model } from 'mongoose';
 import { IUser, UserModel } from './user.interface';
 
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser, UserModel>(
   {
     id: {
       type: String,
       required: true,
       unique: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      default: 'user',
     },
     email: {
       type: String,
@@ -25,68 +17,28 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    varified: {
-      type: Number,
-    },
-    dateOfBirth: {
+    role: {
       type: String,
+      default: 'buyer',
     },
-    gender: {
-      type: String,
+    buyer: {
+      type: Schema.Types.ObjectId,
+      ref: 'Buyer',
     },
-    phoneNumber: {
-      type: Number,
-      required: true,
+    seller: {
+      type: Schema.Types.ObjectId,
+      ref: 'Seller',
     },
-    bookingAddress: {
-      fullName: {
-        type: String,
-      },
-      phoneNumber: {
-        type: Number,
-      },
-      state: {
-        type: String,
-      },
-      city: {
-        type: String,
-      },
-      area: {
-        type: String,
-      },
-      houseAddress: {
-        type: String,
-      },
-      landMark: {
-        type: String,
-      },
-      label: {
-        type: String,
-      },
-      defaultAddress: {
-        type: String,
-      },
-      default: {},
-    },
-    return: {
-      type: [String],
-      default: [],
-    },
-    cancellation: {
-      type: [String],
-      default: [],
-    },
-    wishlist: {
-      type: [String],
-      default: [],
-    },
-    followedStore: {
-      type: [String],
-      default: [],
+    admin: {
+      type: Schema.Types.ObjectId,
+      ref: 'Admin',
     },
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 

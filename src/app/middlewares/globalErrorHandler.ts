@@ -48,7 +48,7 @@ const globalErrorHandler: ErrorRequestHandler = async (
       (error as any).code === 11000
     ) {
       statusCode = 400; // You can set a more appropriate status code for duplicate key errors
-      message = 'Duplicate key error. This record already exists.';
+      message = 'User aleady exist. Try with another email.';
     } else {
       message = error?.message;
       errorMessages = error?.message
