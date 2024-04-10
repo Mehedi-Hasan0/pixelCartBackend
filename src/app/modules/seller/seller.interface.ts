@@ -14,16 +14,17 @@ type ISellerAddress = {
 export type ISeller = {
   id: string;
   role: string;
-  fullName: string;
+  name: string;
   email: string;
   password: string;
-  dateOfBirth: string;
-  gender: string;
   phoneNumber: number;
-  address: ISellerAddress;
-  positiveSellerRatings: number;
-  event: IEvent;
-  products: IProduct[]; // have to import from products interface
+  isVarified?: boolean;
+  dateOfBirth?: string;
+  gender?: string;
+  address?: ISellerAddress;
+  positiveSellerRatings?: number;
+  event?: IEvent;
+  products?: IProduct[]; // have to import from products interface
 };
 
 export type SellerModel = Model<ISeller, Record<string, unknown>>;

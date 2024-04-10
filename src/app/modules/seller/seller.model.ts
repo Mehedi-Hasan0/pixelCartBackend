@@ -10,18 +10,12 @@ const sellerSchema = new Schema<ISeller>(
       type: String,
       required: true,
     },
-    fullName: {
+    name: {
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
+    isVarified: {
+      type: Boolean,
     },
     dateOfBirth: {
       type: String,
@@ -82,6 +76,9 @@ const sellerSchema = new Schema<ISeller>(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   },
 );
 
