@@ -7,15 +7,7 @@ const adminSchema = new Schema<IAdmin>(
       type: String,
       required: true,
     },
-    fullName: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
+    name: {
       type: String,
       required: true,
     },
