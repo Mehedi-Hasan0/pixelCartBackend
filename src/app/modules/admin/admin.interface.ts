@@ -3,9 +3,9 @@ import { IEvent } from '../event/event.interface';
 
 export type IAdmin = {
   role: string;
-  fullName: string;
-  email: string;
-  password: string;
+  name: string;
+  email?: string;
+  password?: string;
   event: IEvent;
 };
 

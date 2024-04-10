@@ -7,7 +7,7 @@ import { User } from '../user/user.model';
 import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
 
-const createSeller = async (user: IUser) => {
+const createSeller = async (user: IUser): Promise<IUser | null> => {
   let sellerData = {
     id: '',
     role: 'seller',
