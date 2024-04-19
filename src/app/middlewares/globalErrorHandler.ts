@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
 import { IGenericErrorMessage } from '../../types';
 import handleValidationError from '../../errors/handleValidationError';
@@ -6,7 +9,7 @@ import ApiError from '../../errors/ApiError';
 import { ZodError } from 'zod';
 import handleZodError from '../../errors/handleZodError';
 import handleCastError from '../../errors/handleCastError';
-import { errorLogger } from '../../shared/logger';
+import sendResponse from '../../shared/sendResponse';
 
 const globalErrorHandler: ErrorRequestHandler = async (
   error,
@@ -15,9 +18,9 @@ const globalErrorHandler: ErrorRequestHandler = async (
   next,
 ) => {
   // separating logs based on development and production
-  config.env === 'development'
-    ? console.log('globalErrorHandler ~~~', error)
-    : errorLogger.error('globalErrorHandler ~~~', error);
+  // config.env === 'development'
+  //   ? console.log('globalErrorHandler ~~~', error)
+  //   : errorLogger.error('globalErrorHandler ~~~', error);
 
   let statusCode = 500;
   let message = 'Something went wrong!';
@@ -43,10 +46,7 @@ const globalErrorHandler: ErrorRequestHandler = async (
     errorMessages = simplifiedError.errorMessages;
   } else if (error instanceof Error) {
     // Check for MongoServerError: E11000
-    if (
-      (error as any).name === 'MongoServerError' &&
-      (error as any).code === 11000
-    ) {
+    if (error.name === 'MongoServerError' && (error as any).code === 11000) {
       statusCode = 400; // You can set a more appropriate status code for duplicate key errors
       message = 'User aleady exist. Try with another email.';
     } else {

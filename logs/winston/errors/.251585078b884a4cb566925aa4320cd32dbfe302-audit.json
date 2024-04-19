@@ -24,6 +24,11 @@
             "date": 1712739874123,
             "name": "D:\\projects\\pixelCartBackend\\logs\\winston\\errors\\wm-2024-10-04-15-error.log",
             "hash": "ab6ede1032477132e18ea11dcb82db8f5dad81bd65a4a4b5d9a1395247930923"
+        },
+        {
+            "date": 1712759363058,
+            "name": "D:\\projects\\pixelCartBackend\\logs\\winston\\errors\\wm-2024-10-04-20-error.log",
+            "hash": "29f21a830aaa1c86d5779491d4a586864fdd592267b25bbf7f20f92600b88c44"
         }
     ],
     "hashType": "sha256"
