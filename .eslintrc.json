@@ -16,9 +16,7 @@
     "no-unused-expressions": "error",
     "no-undef": "error",
     "no-unreachable": "error",
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "consistent-type-definitions": ["error", "type"]
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "env": {
     "browser": true,
