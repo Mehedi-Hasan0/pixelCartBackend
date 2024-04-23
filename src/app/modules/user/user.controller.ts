@@ -18,6 +18,34 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+  // pagination options here
+
+  const result = await UserService.getAllUser();
+
+  sendResponse<IUser[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User retreived successfully',
+    data: result,
+  });
+});
+
+const getSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await UserService.getSingleUser(id);
+
+  sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User retreived successfully',
+    data: result,
+  });
+});
+
 export const UserController = {
   createUser,
+  getAllUser,
+  getSingleUser,
 };

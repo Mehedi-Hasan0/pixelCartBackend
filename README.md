@@ -23,6 +23,8 @@ To run this project, you will need to add the following environment variables to
 #### User
 
 ```
+  GET     /api/v1/users/
+  GET     /api/v1/users/:id   (GET a single user)
   POST    /api/v1/users/create-user
 ```
 
@@ -43,4 +45,4 @@ To run this project, you will need to add the following environment variables to
 - Proper global error handling
 - Data validation using zod
 - CRUD operations
-- Pagination, filtering & transactions(include a simple transactions without a payment gateway)
+- Pagination, filtering & transactions
