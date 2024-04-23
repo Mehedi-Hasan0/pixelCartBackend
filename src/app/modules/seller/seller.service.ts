@@ -1,14 +1,16 @@
-import mongoose from 'mongoose';
-import { ISeller } from './seller.interface';
+import mongoose, { SortOrder } from 'mongoose';
 import { generateSellerId } from '../user/user.utils';
 import { Seller } from './seller.model';
-import { IUser } from '../user/user.interface';
+import { IPaginationOptions, IUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
+import { paginationHelper } from '../../../helpers/paginationHelpers';
+import { IGenericResponse } from '../../../types';
+import { ISeller } from './seller.interface';
 
 const createSeller = async (user: IUser): Promise<IUser | null> => {
-  let sellerData = {
+  const sellerData = {
     id: '',
     role: 'seller',
     name: user.name ? user.name : '',
@@ -66,6 +68,36 @@ const createSeller = async (user: IUser): Promise<IUser | null> => {
   return newSellerAllData;
 };
 
+const getAllSeller = async (
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<ISeller[]>> => {
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelper.calculatePagination(paginationOptions);
+
+  // sort conditions
+  const sortCondition: { [key: string]: SortOrder } = {};
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder;
+  }
+
+  const allSellerData = await Seller.find({})
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit);
+
+  const total = await Seller.countDocuments();
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: allSellerData,
+  };
+};
+
 export const SellerService = {
   createSeller,
+  getAllSeller,
 };
