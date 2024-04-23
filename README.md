@@ -41,6 +41,13 @@ To run this project, you will need to add the following environment variables to
   POST    /api/v1/admin/create-admin
 ```
 
+#### Pagination & Filtering routes of Users
+
+```
+/api/v1/users?pag=1&limit=10
+/api/v1/users?sortBy=createdAt&sortOrder=asc   (need both sortBy & sortOrder to sort data)
+```
+
 ## Features
 
 - Proper global error handling
