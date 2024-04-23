@@ -77,8 +77,36 @@ const getSingleUser = async (id: string): Promise<IUser | null> => {
   return singleUser;
 };
 
+const deleteUser = async (id: string) => {
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    const user = await User.findById({ _id: id });
+
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    }
+
+    await Buyer.findOneAndDelete({ _id: user.buyer });
+
+    const deletedUser = await User.findOneAndDelete({ _id: id });
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return deletedUser;
+  } catch (error) {
+    await session.abortTransaction;
+    await session.endSession();
+    throw error;
+  }
+};
+
 export const UserService = {
   createUser,
   getAllUser,
   getSingleUser,
+  deleteUser,
 };

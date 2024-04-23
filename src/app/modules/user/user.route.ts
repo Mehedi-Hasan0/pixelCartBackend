@@ -13,6 +13,8 @@ router.post(
   '/create-user',
   validateRequest(UserValidation.createUserZodSchema),
   UserController.createUser,
-);
+); // for buyers
+
+router.delete('/:id', UserController.deleteUser); // buyer & admin
 
 export const UserRoutes = router;
