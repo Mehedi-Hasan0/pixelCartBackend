@@ -1,19 +1,46 @@
-## API Reference
+## Author
 
-#### Create user
+- [@mahedihasan](https://github.com/Mehedi-Hasan0)
 
-```http
-  POST /api/v1/users/create-user
+## About
+
+An e-commerce platform backend. The main focus of this backend is to implement error handling, CRUD operations, pagination and filtering, transactions, and additional routes as necessary.
+
+## Live link
+
+coming soon
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`PORT`
+
+`DATABASE_URL`
+
+## Application route
+
+#### User
+
+```
+  POST    /api/v1/users/create-user
 ```
 
-#### Create seller
+#### Seller
 
-```http
-  POST /api/v1/sellers/create-seller
+```
+  POST    /api/v1/sellers/create-seller
 ```
 
-#### Details
+### Admin
 
-| Parameter | Type   | Required field                     |
-| :-------- | :----- | :--------------------------------- |
-| `null`    | `POST` | Name, email, password, phoneNumber |
+```
+  POST    /api/v1/admin/create-admin
+```
+
+## Features
+
+- Proper global error handling
+- Data validation using zod
+- CRUD operations
+- Pagination, filtering & transactions(include a simple transactions without a payment gateway)

@@ -3,6 +3,9 @@ import { AdminModel, IAdmin } from './admin.interface';
 
 const adminSchema = new Schema<IAdmin>(
   {
+    id: {
+      type: String,
+    },
     role: {
       type: String,
       required: true,

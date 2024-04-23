@@ -7,7 +7,7 @@ import ApiError from '../../../errors/ApiError';
 import { User } from '../user/user.model';
 
 const createAdmin = async (user: IUser): Promise<IUser | null> => {
-  let adminData = {
+  const adminData = {
     id: '',
     role: 'admin',
     name: user.name ? user.name : '',

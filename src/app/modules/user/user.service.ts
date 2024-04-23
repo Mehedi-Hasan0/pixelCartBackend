@@ -7,7 +7,7 @@ import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
-  let buyerData = {
+  const buyerData = {
     id: '',
     role: 'buyer',
     name: user.name ? user.name : '',
