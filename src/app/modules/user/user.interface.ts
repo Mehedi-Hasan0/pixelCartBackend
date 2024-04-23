@@ -1,4 +1,4 @@
-import { Model, Types } from 'mongoose';
+import { Model, SortOrder, Types } from 'mongoose';
 
 export type IUser = {
   id: string;
@@ -15,3 +15,10 @@ export type IUser = {
 };
 
 export type UserModel = Model<IUser, Record<string, unknown>>;
+
+export interface IPaginationOptions {
+  page?: string;
+  limit?: string;
+  sortBy?: string;
+  sortOrder?: SortOrder;
+}

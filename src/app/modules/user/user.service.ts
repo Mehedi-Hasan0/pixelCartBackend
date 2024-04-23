@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
-import { IUser } from './user.interface';
+import { IPaginationOptions, IUser } from './user.interface';
 import { User } from './user.model';
 import { generateBuyerId } from './user.utils';
 import { Buyer } from '../buyer/buyer.model';
 import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
+import { paginationHelper } from '../../../helpers/paginationHelpers';
+import { SortOrder } from 'mongoose';
+import { IGenericResponse } from '../../../types';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
   const buyerData = {
@@ -60,15 +63,39 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
   return newUserAllData;
 };
 
-const getAllUser = async (): Promise<IUser[] | null> => {
+const getAllUser = async (
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<IUser[]>> => {
   // paginations options
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelper.calculatePagination(paginationOptions);
 
-  const allUserData = await User.find({});
+  // sort conditions
+  const sortCondition: { [key: string]: SortOrder } = {};
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder;
+  }
+
+  const allUserData = await User.find({})
+    .populate('buyer')
+    .populate('seller')
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit); // populating role based data
 
   // filter out admin users from this request
   const filteredUsers = allUserData.filter(user => !user.id.includes('Admin')); // returns users that is not a admin
 
-  return filteredUsers;
+  const total = filteredUsers.length;
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: filteredUsers,
+  };
 };
 
 const getSingleUser = async (id: string): Promise<IUser | null> => {

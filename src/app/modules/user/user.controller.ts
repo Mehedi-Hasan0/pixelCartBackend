@@ -4,6 +4,8 @@ import { Request, Response } from 'express';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
 import { IUser } from './user.interface';
+import pick from '../../../shared/pick';
+import { paginationFields } from '../../../constants/paginationFields';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const user = req.body;
@@ -20,14 +22,16 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
   // pagination options here
+  const paginationOptions = pick(req.query, paginationFields);
 
-  const result = await UserService.getAllUser();
+  const result = await UserService.getAllUser(paginationOptions);
 
   sendResponse<IUser[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User retreived successfully',
-    data: result,
+    meta: result.meta,
+    data: result.data,
   });
 });
 
