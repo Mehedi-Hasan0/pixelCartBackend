@@ -60,6 +60,25 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
   return newUserAllData;
 };
 
+const getAllUser = async (): Promise<IUser[] | null> => {
+  // paginations options
+
+  const allUserData = await User.find({});
+
+  // filter out admin users from this request
+  const filteredUsers = allUserData.filter(user => !user.id.includes('Admin')); // returns users that is not a admin
+
+  return filteredUsers;
+};
+
+const getSingleUser = async (id: string): Promise<IUser | null> => {
+  const singleUser = await User.findById({ _id: id });
+
+  return singleUser;
+};
+
 export const UserService = {
   createUser,
+  getAllUser,
+  getSingleUser,
 };
