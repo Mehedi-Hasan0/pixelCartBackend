@@ -26,7 +26,7 @@ To run this project, you will need to add the following environment variables to
   GET     /api/v1/users/
   GET     /api/v1/users/:id   (GET a single user)
   POST    /api/v1/users/create-user
-  DELETE  /api/v1/users/:id
+  DELETE  /api/v1/users/:id  (Both buyer & seller id can be deleted by admin only)
 ```
 
 #### Seller
