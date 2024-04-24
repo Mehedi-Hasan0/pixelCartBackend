@@ -80,6 +80,7 @@ const getAllSeller = async (
     sortCondition[sortBy] = sortOrder;
   }
 
+  // TODO: maybe we need to populate products after poduct is available
   const allSellerData = await Seller.find({})
     .sort(sortCondition)
     .skip(skip)
@@ -97,7 +98,14 @@ const getAllSeller = async (
   };
 };
 
+const getSingleSeller = async (id: string): Promise<ISeller | null> => {
+  const singleSeller = await Seller.findById({ _id: id });
+
+  return singleSeller;
+};
+
 export const SellerService = {
   createSeller,
   getAllSeller,
+  getSingleSeller,
 };
