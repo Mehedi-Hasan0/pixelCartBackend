@@ -38,6 +38,12 @@ To run this project, you will need to add the following environment variables to
   PATCH   /api/v1/sellers/:id
 ```
 
+#### Buyer
+
+```
+  PATCH   /api/v1/buyers/:id
+```
+
 ### Admin
 
 ```
