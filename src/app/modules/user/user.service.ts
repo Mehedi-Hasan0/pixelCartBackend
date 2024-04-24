@@ -101,6 +101,10 @@ const getAllUser = async (
 const getSingleUser = async (id: string): Promise<IUser | null> => {
   const singleUser = await User.findById({ _id: id });
 
+  if (!singleUser) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found!');
+  }
+
   return singleUser;
 };
 

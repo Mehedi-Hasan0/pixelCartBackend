@@ -35,6 +35,7 @@ To run this project, you will need to add the following environment variables to
   GET     /api/v1/sellers/
   GET     /api/v1/sellers/:id  (GET a single seller)
   POST    /api/v1/sellers/create-seller
+  PATCH   /api/v1/sellers/:id
 ```
 
 ### Admin
