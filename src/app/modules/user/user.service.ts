@@ -8,6 +8,7 @@ import httpStatus from 'http-status';
 import { paginationHelper } from '../../../helpers/paginationHelpers';
 import { SortOrder } from 'mongoose';
 import { IGenericResponse } from '../../../types';
+import { Seller } from '../seller/seller.model';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
   const buyerData = {
@@ -120,8 +121,14 @@ const deleteUser = async (id: string) => {
       throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    await Buyer.findOneAndDelete({ _id: user.buyer });
+    // deleting user data based on roles
+    if (user.role === 'buyer') {
+      await Buyer.findOneAndDelete({ _id: user.buyer });
+    } else if (user.role === 'seller') {
+      await Seller.findByIdAndDelete({ _id: user.seller });
+    }
 
+    // deleting user from user collection also
     const deletedUser = await User.findOneAndDelete({ _id: id });
 
     await session.commitTransaction();
