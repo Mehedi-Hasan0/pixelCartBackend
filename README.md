@@ -32,6 +32,8 @@ To run this project, you will need to add the following environment variables to
 #### Seller
 
 ```
+  GET     /api/v1/sellers/
+  GET     /api/v1/sellers/:id  (GET a single seller)
   POST    /api/v1/sellers/create-seller
 ```
 
@@ -46,6 +48,13 @@ To run this project, you will need to add the following environment variables to
 ```
 /api/v1/users?pag=1&limit=10
 /api/v1/users?sortBy=createdAt&sortOrder=asc   (need both sortBy & sortOrder to sort data)
+```
+
+#### Pagination & Filtering routes of Sellers
+
+```
+/api/v1/sellers?pag=1&limit=10
+/api/v1/sellers?sortBy=createdAt&sortOrder=asc   (need both sortBy & sortOrder to sort data)
 ```
 
 ## Features

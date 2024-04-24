@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/', SellerController.getAllSeller); // only for admin
 
+router.get('/:id', SellerController.getSingleSeller)
+
 router.post(
   '/create-seller',
   validateRequest(SellerValidation.createSellerZodSchema),
