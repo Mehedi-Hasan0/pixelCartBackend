@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose, { SortOrder } from 'mongoose';
 import { generateSellerId } from '../user/user.utils';
 import { Seller } from './seller.model';
@@ -101,11 +102,49 @@ const getAllSeller = async (
 const getSingleSeller = async (id: string): Promise<ISeller | null> => {
   const singleSeller = await Seller.findById({ _id: id });
 
+  if (!singleSeller) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Seller not found!');
+  }
+
   return singleSeller;
+};
+
+const updateSingleSeller = async (
+  id: string,
+  sellerData: Partial<ISeller>,
+): Promise<ISeller | null> => {
+  const { address, ...otherSellerData } = sellerData;
+
+  const updatedSellerData = { ...otherSellerData };
+
+  const seller = await Seller.findById({ _id: id });
+
+  if (!seller) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Seller not found!');
+  }
+
+  // handle embedded field update
+  if (address && Object.keys(address).length > 0) {
+    Object.keys(address).forEach(key => {
+      const addressKey = `address.${key}` as keyof Partial<ISeller>;
+      (updatedSellerData as any)[addressKey] =
+        address[key as keyof typeof address];
+    });
+  }
+
+  // update in the DB
+  const newUpdatedSeller = await Seller.findOneAndUpdate(
+    { _id: id },
+    updatedSellerData,
+    { new: true },
+  );
+
+  return newUpdatedSeller;
 };
 
 export const SellerService = {
   createSeller,
   getAllSeller,
   getSingleSeller,
+  updateSingleSeller,
 };

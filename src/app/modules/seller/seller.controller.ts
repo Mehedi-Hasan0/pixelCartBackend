@@ -49,8 +49,23 @@ const getSingleSeller = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateSingleSeller = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const sellerData = req.body;
+
+  const result = await SellerService.updateSingleSeller(id, sellerData);
+
+  sendResponse<ISeller>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Seller updated successfully',
+    data: result,
+  });
+});
+
 export const SellerController = {
   createSeller,
   getAllSeller,
   getSingleSeller,
+  updateSingleSeller,
 };
