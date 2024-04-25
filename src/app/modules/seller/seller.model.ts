@@ -71,7 +71,8 @@ const sellerSchema = new Schema<ISeller>(
       },
     },
     products: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
+      ref: 'Products',
     },
   },
   {

@@ -1,5 +1,6 @@
-import mongoose, { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { IEvent } from '../event/event.interface';
+import { ISeller } from '../seller/seller.interface';
 
 type IRatings = {
   oneStar: number;
@@ -12,7 +13,7 @@ type IRatings = {
 type IReviews = {
   buyerName: string;
   stars: number;
-  reviewTime: Date;
+  reviewTime: string;
   message: string;
   images: string[];
 };
@@ -22,24 +23,25 @@ type IReviews = {
 // }
 
 export type IProduct = {
-  id: string;
-  sellerId: mongoose.Types.ObjectId;
+  id: string; // create * append in backend
+  sellerId: Types.ObjectId | ISeller;
   title: string;
-  brand: string;
+  brand?: string;
   price: number;
+  quantity: number;
   categories: string;
-  images: string[];
-  discountedPrice: number;
-  discountPercent: number;
-  ratings: IRatings;
-  reviews: IReviews;
+  images?: string[];
+  discountedPrice?: number;
+  discountPercent?: number;
+  ratings?: IRatings;
+  reviews?: IReviews;
   productDetails: string;
-  specification: string;
+  specification?: string;
   //   questionsAndAnswer: // questions and answer should be a separate model to handle
-  wishlist: string[];
-  warranty: string; // it should be enum/constant
-  event: IEvent;
-  sku: string;
+  wishlist?: string[];
+  warranty?: string; // it should be enum/constant
+  event?: IEvent;
+  sku?: string; // generate in the backend and append
 };
 
 export type ProductModel = Model<IProduct, Record<string, unknown>>;
