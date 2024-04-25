@@ -45,3 +45,12 @@ export type IProduct = {
 };
 
 export type ProductModel = Model<IProduct, Record<string, unknown>>;
+
+export type IProductFilterableFields = {
+  searchTerm?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  brand?: string;
+  categories?: string;
+  ratings?: string;
+};

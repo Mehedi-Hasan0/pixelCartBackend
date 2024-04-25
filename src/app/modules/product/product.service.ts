@@ -1,10 +1,14 @@
-import mongoose from 'mongoose';
-import { IProduct } from './product.interface';
+import mongoose, { SortOrder } from 'mongoose';
+import { IProduct, IProductFilterableFields } from './product.interface';
 import { generateProductId, generateSku } from './product.utils';
 import { Product } from './product.model';
 import { Seller } from '../seller/seller.model';
 import ApiError from '../../../errors/ApiError';
 import httpStatus from 'http-status';
+import { IPaginationOptions } from '../user/user.interface';
+import { IGenericResponse } from '../../../types';
+import { productSearchFields } from './product.constant';
+import { paginationHelper } from '../../../helpers/paginationHelpers';
 
 const createProduct = async (product: IProduct): Promise<IProduct | null> => {
   const session = await mongoose.startSession();
@@ -54,6 +58,81 @@ const createProduct = async (product: IProduct): Promise<IProduct | null> => {
   return savedProduct;
 };
 
+const getAllProducts = async (
+  filters: IProductFilterableFields,
+  paginationOptions: IPaginationOptions,
+): Promise<IGenericResponse<IProduct[]>> => {
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelper.calculatePagination(paginationOptions);
+
+  const andCondition = [];
+
+  // handling searchTerm
+  if (searchTerm) {
+    andCondition.push({
+      $or: productSearchFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+
+  // handling other filters data
+  if (Object.keys(filtersData).length) {
+    andCondition.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
+  // for minPrice
+  if (minPrice) {
+    andCondition.push({
+      price: {
+        $gte: minPrice,
+      },
+    });
+  }
+
+  // for minPrice
+  if (maxPrice) {
+    andCondition.push({
+      price: {
+        $lte: maxPrice,
+      },
+    });
+  }
+
+  // handle sorting
+  const sortingCondition: { [key: string]: SortOrder } = {};
+  if (sortBy && sortOrder) {
+    sortingCondition[sortBy] = sortOrder;
+  }
+
+  const whenCondtion = andCondition.length > 0 ? { $and: andCondition } : {};
+
+  const allProductsData = await Product.find(whenCondtion)
+    .sort(sortingCondition)
+    .skip(skip)
+    .limit(limit);
+
+  const total = await Product.countDocuments(whenCondtion);
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: allProductsData,
+  };
+};
+
 export const ProductService = {
   createProduct,
+  getAllProducts,
 };
