@@ -54,6 +54,7 @@ To run this project, you will need to add the following environment variables to
 
 ```
   GET     /api/v1/products/
+  GET     /api/v1/products/:id   (GET a single product)
   POST    /api/v1/products/create-product
 ```
 

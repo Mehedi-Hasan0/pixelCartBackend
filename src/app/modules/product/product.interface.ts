@@ -12,7 +12,7 @@ type IRatings = {
 
 type IReviews = {
   buyerName: string;
-  stars: number;
+  stars: string;
   reviewTime: string;
   message: string;
   images: string[];
@@ -29,12 +29,12 @@ export type IProduct = {
   brand?: string;
   price: number;
   quantity: number;
-  categories: string;
+  category: string;
   images?: string[];
   discountedPrice?: number;
   discountPercent?: number;
   ratings?: IRatings;
-  reviews?: IReviews;
+  reviews?: IReviews[];
   productDetails: string;
   specification?: string;
   //   questionsAndAnswer: // questions and answer should be a separate model to handle

@@ -28,7 +28,7 @@ const productSchema = new Schema<IProduct, ProductModel>(
       type: Number,
       required: true,
     },
-    categories: {
+    category: {
       type: String,
       required: true,
     },
@@ -42,21 +42,7 @@ const productSchema = new Schema<IProduct, ProductModel>(
       type: Number,
     },
     ratings: {
-      oneStar: {
-        type: Number,
-      },
-      twoStars: {
-        type: Number,
-      },
-      threeStars: {
-        type: Number,
-      },
-      fourStars: {
-        type: Number,
-      },
-      fiveStars: {
-        type: Number,
-      },
+      type: Number,
     },
     reviews: {
       buyerName: {
