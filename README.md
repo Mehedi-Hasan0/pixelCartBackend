@@ -50,6 +50,12 @@ To run this project, you will need to add the following environment variables to
   POST    /api/v1/admin/create-admin
 ```
 
+### Products
+
+```
+  POST    /api/v1/products/create-product
+```
+
 #### Pagination & Filtering routes of Users
 
 ```
