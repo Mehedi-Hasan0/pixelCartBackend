@@ -7,7 +7,7 @@ const createProductZodSchema = z.object({
     brand: z.string().optional(),
     price: z.string(),
     quantity: z.string(),
-    categories: z.string(),
+    category: z.string(),
     discountedPrice: z.string().optional(),
     discountPercent: z.string().optional(),
     productDetails: z.string(),

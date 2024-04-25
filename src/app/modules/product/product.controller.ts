@@ -39,7 +39,36 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleProducts = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await ProductService.getSingleProducts(id);
+
+  sendResponse<IProduct>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product retrieved successfully!',
+    data: result,
+  });
+});
+
+const updateSingleProduct = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const productData = req.body;
+
+  const result = await ProductService.updateSingleProduct(id, productData);
+
+  sendResponse<IProduct>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product retrieved successfully!',
+    data: result,
+  });
+});
+
 export const ProductController = {
   createProduct,
   getAllProducts,
+  getSingleProducts,
+  updateSingleProduct,
 };

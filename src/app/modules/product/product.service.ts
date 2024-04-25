@@ -132,7 +132,39 @@ const getAllProducts = async (
   };
 };
 
+const getSingleProducts = async (id: string): Promise<IProduct> => {
+  const singleProduct = await Product.findById({ _id: id });
+
+  if (!singleProduct) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found!');
+  }
+
+  return singleProduct;
+};
+
+const updateSingleProduct = async (
+  id: string,
+  productData: Partial<IProduct>,
+): Promise<IProduct | null> => {
+  // TODO: embedded field review should not be able to edit in the frontend
+  const singleProduct = await Product.findById({ _id: id });
+
+  if (!singleProduct) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found!');
+  }
+
+  const newUpdatedProduct = await Product.findOneAndUpdate(
+    { _id: id },
+    productData,
+    { new: true },
+  );
+
+  return newUpdatedProduct;
+};
+
 export const ProductService = {
   createProduct,
+  getSingleProducts,
   getAllProducts,
+  updateSingleProduct,
 };
