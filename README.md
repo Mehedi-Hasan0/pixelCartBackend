@@ -53,21 +53,32 @@ To run this project, you will need to add the following environment variables to
 ### Products
 
 ```
+  GET     /api/v1/products/
   POST    /api/v1/products/create-product
 ```
 
 #### Pagination & Filtering routes of Users
 
 ```
-/api/v1/users?pag=1&limit=10
+/api/v1/users?page=1&limit=10
 /api/v1/users?sortBy=createdAt&sortOrder=asc   (need both sortBy & sortOrder to sort data)
 ```
 
 #### Pagination & Filtering routes of Sellers
 
 ```
-/api/v1/sellers?pag=1&limit=10
+/api/v1/sellers?page=1&limit=10
 /api/v1/sellers?sortBy=createdAt&sortOrder=asc   (need both sortBy & sortOrder to sort data)
+```
+
+#### Pagination & Filtering routes of Products
+
+```
+/api/v1/products?page=1&limit=10
+/api/v1/products?sortBy=price&sortOrder=asc   (need both sortBy & sortOrder to sort data)
+/api/v1/products?searchTerm=T-shirt   (search fields works on 'title', 'brand', 'sku', 'categories')
+/api/v1/products?minPrice=100&maxPrice=1000
+/api/v1/products?brand=Polo&categories=T-shirt
 ```
 
 ## Features
