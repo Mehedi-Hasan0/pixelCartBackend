@@ -4,7 +4,7 @@
 
 ## About
 
-An e-commerce platform backend. The main focus of this backend is to implement error handling, CRUD operations, pagination and filtering, transactions, and additional routes as necessary.
+An e-commerce platform backend. The main focus of this backend is to implement error handling, authentication and authorization, CRUD operations, pagination and filtering, transactions, and additional routes as necessary.
 
 ## Live link
 
@@ -20,6 +20,12 @@ To run this project, you will need to add the following environment variables to
 
 ## Application route
 
+### Auth
+
+```
+  POST     /api/v1/auth/login/
+```
+
 #### User
 
 ```
@@ -28,6 +34,13 @@ To run this project, you will need to add the following environment variables to
   POST    /api/v1/users/create-user
   DELETE  /api/v1/users/:id  (Both buyer & seller id can be deleted by admin only)
 ```
+
+| route                       | Type     | Authorization  |
+| :-------------------------- | :------- | :------------- |
+| `/api/v1/users/`            | `GET`    | Admin          |
+| `/api/v1/users/:id`         | `GET`    | Admin          |
+| `/api/v1/users/create-user` | `POST`   | All            |
+| `/api/v1/users/:id`         | `Delete` | Admin & Seller |
 
 #### Seller
 
@@ -38,17 +51,22 @@ To run this project, you will need to add the following environment variables to
   PATCH   /api/v1/sellers/:id
 ```
 
+| route                           | Type    | Authorization |
+| :------------------------------ | :------ | :------------ |
+| `/api/v1/sellers/`              | `GET`   | Admin         |
+| `/api/v1/sellers/:id`           | `GET`   | Admin         |
+| `/api/v1/sellers/create-seller` | `POST`  | All           |
+| `/api/v1/sellers/:id`           | `PATCH` | Seller        |
+
 #### Buyer
 
 ```
   PATCH   /api/v1/buyers/:id
 ```
 
-### Admin
-
-```
-  POST    /api/v1/admin/create-admin
-```
+| route                | Type    | Authorization |
+| :------------------- | :------ | :------------ |
+| `/api/v1/buyers/:id` | `PATCH` | Buyer         |
 
 ### Products
 
@@ -57,6 +75,12 @@ To run this project, you will need to add the following environment variables to
   GET     /api/v1/products/:id   (GET a single product)
   POST    /api/v1/products/create-product
 ```
+
+| route                             | Type   | Authorization |
+| :-------------------------------- | :----- | :------------ |
+| `/api/v1/products/`               | `GET`  | All           |
+| `/api/v1/products/:id`            | `GET`  | All           |
+| `/api/v1/products/create-product` | `POST` | Seller        |
 
 #### Pagination & Filtering routes of Users
 
