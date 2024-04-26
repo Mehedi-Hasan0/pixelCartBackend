@@ -80,13 +80,13 @@ To run this project, you will need to add the following environment variables to
   DELETE  /api/v1/products/:id
 ```
 
-| route                             | Type   | Authorization  |
-| :-------------------------------- | :----- | :------------- |
-| `/api/v1/products/`               | `GET`  | All            |
-| `/api/v1/products/:id`            | `GET`  | All            |
-| `/api/v1/products/create-product` | `POST` | Seller         |
-| `/api/v1/products/:id`            | `POST` | Seller         |
-| `/api/v1/products/:id`            | `POST` | Seller & Admin |
+| route                             | Type     | Authorization  |
+| :-------------------------------- | :------- | :------------- |
+| `/api/v1/products/`               | `GET`    | All            |
+| `/api/v1/products/:id`            | `GET`    | All            |
+| `/api/v1/products/create-product` | `POST`   | Seller         |
+| `/api/v1/products/:id`            | `PATCH`  | Seller         |
+| `/api/v1/products/:id`            | `DELETE` | Seller & Admin |
 
 #### Pagination & Filtering routes of Users
 
