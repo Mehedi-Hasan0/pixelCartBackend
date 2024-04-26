@@ -25,6 +25,7 @@ To run this project, you will need to add the following environment variables to
 ```
   POST     /api/v1/auth/login/
   POST     /api/v1/auth/refresh-token
+  POST     /api/v1/auth/change-password
 ```
 
 #### User
@@ -33,7 +34,7 @@ To run this project, you will need to add the following environment variables to
   GET     /api/v1/users/
   GET     /api/v1/users/:id   (GET a single user)
   POST    /api/v1/users/create-user
-  DELETE  /api/v1/users/:id  (Both buyer & seller id can be deleted by admin only)
+  DELETE  /api/v1/users/:id
 ```
 
 | route                       | Type     | Authorization  |
