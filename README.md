@@ -76,13 +76,17 @@ To run this project, you will need to add the following environment variables to
   GET     /api/v1/products/
   GET     /api/v1/products/:id   (GET a single product)
   POST    /api/v1/products/create-product
+  PATCH   /api/v1/products/:id
+  DELETE  /api/v1/products/:id
 ```
 
-| route                             | Type   | Authorization |
-| :-------------------------------- | :----- | :------------ |
-| `/api/v1/products/`               | `GET`  | All           |
-| `/api/v1/products/:id`            | `GET`  | All           |
-| `/api/v1/products/create-product` | `POST` | Seller        |
+| route                             | Type   | Authorization  |
+| :-------------------------------- | :----- | :------------- |
+| `/api/v1/products/`               | `GET`  | All            |
+| `/api/v1/products/:id`            | `GET`  | All            |
+| `/api/v1/products/create-product` | `POST` | Seller         |
+| `/api/v1/products/:id`            | `POST` | Seller         |
+| `/api/v1/products/:id`            | `POST` | Seller & Admin |
 
 #### Pagination & Filtering routes of Users
 
