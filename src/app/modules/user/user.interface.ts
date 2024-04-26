@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Model, SortOrder, Types } from 'mongoose';
 import { IBuyer } from '../buyer/buyer.interface';
 import { ISeller } from '../seller/seller.interface';
@@ -17,7 +18,17 @@ export type IUser = {
   admin?: Types.ObjectId | IAdmin; //  => admin type
 };
 
-export type UserModel = Model<IUser, Record<string, unknown>>;
+// export type UserModel = Model<IUser, Record<string, unknown>>;
+
+export type UserModel = {
+  isUserExist(
+    id: string,
+  ): Promise<Pick<IUser, 'id' | 'email' | 'role' | 'password'>>;
+  isPasswordMatched(
+    givenPassword: string,
+    savedPassword: string,
+  ): Promise<boolean>;
+} & Model<IUser>;
 
 export interface IPaginationOptions {
   page?: string;
