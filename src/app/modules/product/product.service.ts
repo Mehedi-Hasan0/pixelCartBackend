@@ -162,9 +162,55 @@ const updateSingleProduct = async (
   return newUpdatedProduct;
 };
 
+const deleteProduct = async (id: string) => {
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+
+    const isProductExist = await Product.findById({ _id: id });
+
+    if (!isProductExist) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+    }
+
+    const productOwner = await Seller.findOne({
+      _id: isProductExist?.sellerId,
+    });
+
+    if (!productOwner) {
+      throw new ApiError(
+        httpStatus.NOT_FOUND,
+        'Operation cancelled due to product owner not found!',
+      );
+    }
+
+    // MongoDB id can't be compared directly with '==' or '==='. That's why we need to convert it to a string then compare it instance
+    // new ObjectId('662ba8290ffb7057c7177a16').toHexString() => 662ba8290ffb7057c7177a16
+
+    productOwner.products = productOwner.products?.filter(
+      product => product.toHexString() !== isProductExist._id.toHexString(),
+    );
+
+    await productOwner.save();
+
+    const deletedProduct = await Product.findOneAndDelete({ _id: id });
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return deletedProduct;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw error;
+  }
+};
+
 export const ProductService = {
   createProduct,
   getSingleProducts,
   getAllProducts,
   updateSingleProduct,
+  deleteProduct,
 };

@@ -24,4 +24,10 @@ router.patch(
   ProductController.updateSingleProduct,
 ); // for seller only
 
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.ADMIN),
+  ProductController.deleteProduct,
+); // for seller & admin
+
 export const ProductRoutes = router;
