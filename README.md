@@ -24,6 +24,7 @@ To run this project, you will need to add the following environment variables to
 
 ```
   POST     /api/v1/auth/login/
+  POST     /api/v1/auth/refresh-token
 ```
 
 #### User
